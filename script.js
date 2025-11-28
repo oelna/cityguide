@@ -14,6 +14,9 @@ try {
 }
 
 if (entries) {
+	// sort alphabetically for now
+	entries.sort((a, b) => a.title.localeCompare(b.title));
+
 	console.log(entries);
 
 	for (const entry of entries) {
@@ -96,7 +99,9 @@ document.addEventListener('toggle', async function (event) {
 	}
 }, true);
 
-function getLocation () {
+document.querySelector('#get-location').addEventListener('pointerup', getLocation);
+
+function getLocation (event=null) {
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(
 			function (position) { // Success function
