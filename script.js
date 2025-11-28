@@ -105,8 +105,8 @@ function getLocation (event=null) {
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(
 			function (position) { // Success function
-				// document.documentElement.setAttribute('data-home-lat', position.coords.latitude);
-				// document.documentElement.setAttribute('data-home-lng', position.coords.longitude);
+				document.documentElement.setAttribute('data-home-lat', position.coords.latitude);
+				document.documentElement.setAttribute('data-home-lng', position.coords.longitude);
 
 				console.log('Setting user location … success!');
 			},
@@ -114,7 +114,7 @@ function getLocation (event=null) {
 				console.log('Error getting user location', error);
 			}, 
 			{ // options
-				enableHighAccuracy: false, // true?
+				enableHighAccuracy: true, // true?
 				timeout: 10000,
 				maximumAge: 0
 			});
