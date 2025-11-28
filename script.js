@@ -1,17 +1,91 @@
 
+const entriesContainer = document.querySelector('main section ul.entries');
+
 const tags = document.querySelectorAll('.tags a');
 const geo = document.querySelectorAll('.geo');
-const places = document.querySelectorAll('.entries > li');
 
-for (const place of places) {
-	const detailElement = place.querySelector('details');
-	detailElement.addEventListener('toggle', async function (event) {
+let entries;
+
+try {
+	const response = await fetch('./entries.json');
+	entries = await response.json();
+} catch (e) {
+	console.error('Error', e);
+}
+
+if (entries) {
+	console.log(entries);
+
+	for (const entry of entries) {
+		if (entry?.visible === false) continue;
+
+		const li = document.createElement('li');
+		li.setAttribute('data-id', 1);
+
+		const details = document.createElement('details');
+		const summary = document.createElement('summary');
+		const h3 = document.createElement('h3');
+		h3.textContent = entry.title;
+
+		const expanded = document.createElement('div');
+		expanded.classList.add('entry-expanded');
+
+		const tags = document.createElement('ul');
+		tags.classList.add('tags');
+		entry.tags.forEach(function (tag, i) {
+			tags.insertAdjacentHTML('beforeend', `<li><a class="${tag}" href="#${tag}">${tag}</a></li>`)
+		});
+
+		const geo = document.createElement('div');
+		geo.classList.add('geo');
+		const address = document.createElement('div');
+		address.classList.add('address');
+		address.setAttribute('data-lat', entry.lat);
+		address.setAttribute('data-lng', entry.lng);
+		const maplink = document.createElement('a');
+		maplink.setAttribute('href', `http://maps.apple.com/?q=${entry.lat},${entry.lng}`);
+		maplink.insertAdjacentHTML('beforeend', entry.address.replaceAll('\n', '<br>'));
+		const distance = document.createElement('div');
+		distance.classList.add('distance');
+		distance.textContent = '0';
+
+		const desc = document.createElement('div');
+		desc.classList.add('description');
+		desc.insertAdjacentHTML('beforeend', entry.description.replaceAll('\n', '<br>'));
+
+		// nest elements
+		li.appendChild(details);
+		details.appendChild(summary);
+		details.appendChild(expanded);
+		summary.appendChild(h3);
+		expanded.appendChild(tags);
+		expanded.appendChild(geo);
+		expanded.appendChild(desc);
+		geo.appendChild(address);
+		geo.appendChild(distance);
+		address.appendChild(maplink);
+
+		// append to DOM
+		entriesContainer.appendChild(li);
+	}
+}
+
+document.addEventListener('pointerup', function (event) {
+	if (event.target.closest('.tags > li')) {
+		// click on a tag
+		event.preventDefault();
+		console.log('click on a tag', event.target.textContent);
+	}
+});
+
+document.addEventListener('toggle', async function (event) {
+	// click on a details element, aka. entry
+	if (event.target.tagName === 'DETAILS' && event.target.closest('li[data-id]')) {
 		const distanceElement = event.target.querySelector('.distance');
 		if (event.target.open) {
 			if (distanceElement.textContent == '0') {
 				// first time load
-				// console.log('ist offen, first time');
-				const success = await loadDistance(detailElement);
+				const success = await loadDistance(event.target);
 				if (!success) console.error('Could not get distance for', place);
 			} else {
 				// console.log('ist offen, subsequent time');
@@ -19,16 +93,8 @@ for (const place of places) {
 		} else {
 			// console.log('ist zu');
 		}
-	})
-}
-
-for (const tag of tags) {
-	tag.addEventListener('click', function (event) {
-		event.preventDefault();
-
-		console.log(event.target.innerText);
-	});
-}
+	}
+}, true);
 
 function getLocation () {
 	if (navigator.geolocation) {
@@ -66,6 +132,7 @@ async function loadDistance (placeElement) {
 	if (currentLng == '0' || currentLng == '') currentLng = null;
 	// console.log(currentLat, currentLng);
 
+	// https://nominatim.org/release-docs/develop/api/Search/
 	if (!currentLat && !currentLng) {
 		const url = 'https://nominatim.openstreetmap.org/search?format=json&q='+addressText.replaceAll(' ', '+');
 		try {

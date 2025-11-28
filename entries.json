@@ -1,0 +1,27 @@
+[
+	{
+		"title": "Eintrag 1",
+		"address": "Torwiesenstr. 17\n68163 Mannheim",
+		"lat": 49.4710008,
+		"lng": 8.4687953,
+		"description": "Beschreibung",
+		"website": "",
+		"tags": [
+			"restaurant"
+		],
+		"visible": true
+	},
+	{
+		"title": "Pizzeria Quattro Mori",
+		"address": "Windeckstr. 34\n68163 Mannheim",
+		"lat": 49.4701558,
+		"lng": 8.4825878,
+		"description": "Eine günstige und gute Pizza in Hauptbahnhofsnähe, zu einem fairen Preis. Im Sommer auch Aussenbestuhlung.",
+		"website": "",
+		"tags": [
+			"restaurant",
+			"kneipe"
+		],
+		"visible": true
+	}
+]
