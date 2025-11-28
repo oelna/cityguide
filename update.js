@@ -18,7 +18,7 @@ for (const entry of entries) {
 
 				const result = await response.json();
 
-				if (result.length > 1) {
+				if (result.length > 0) {
 					// console.log(result[0]?.lat, result[0]?.lon);
 					entry.lat = (result[0]?.lat) ? parseFloat(result[0]?.lat) : 0.0;
 					entry.lng = (result[0]?.lon) ? parseFloat(result[0]?.lon) : 0.0;
@@ -37,5 +37,3 @@ for (const entry of entries) {
 if (changed > 0) {
 	Deno.writeTextFileSync("./entries.json", JSON.stringify(entries, null, "\t"));
 }
-
-// Deno.exit(0);
