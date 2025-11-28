@@ -1,0 +1,35 @@
+name: Geocode addresses
+
+on:
+  schedule:
+    - cron: "43 */12 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Run update script
+        run: deno run -A update.js
+
+      - name: Commit and push if changed
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git config --local user.name ${{ github.actor }}
+            git config --local user.email "${{ github.actor }}@users.noreply.github.com"
+            git add entries.json
+            git commit -m "automatically updated location coordinates"
+            git push
+          else
+            echo "No changes."
+          fi
