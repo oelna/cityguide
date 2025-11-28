@@ -23,5 +23,18 @@
 			"kneipe"
 		],
 		"visible": true
+	},
+	{
+		"title": "Yagiya",
+		"address": "Käfertalerstrasse 35\n68167 Mannheim",
+		"lat": 0,
+		"lng": 0,
+		"description": "Bei YagiYa trifft die japanische auf die französische und deutsche Konditorenkunst. Herauskommen außergewöhnliche süße Geschmackserlebnisse!",
+		"website": "https://www.instagram.com/yagiya.yagiya/",
+		"tags": [
+			"konditorei",
+			"baeckerei"
+		],
+		"visible": true
 	}
 ]
