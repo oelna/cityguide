@@ -4,6 +4,28 @@ const entriesContainer = document.querySelector('main section ul.entries');
 const tags = document.querySelectorAll('.tags a');
 const geo = document.querySelectorAll('.geo');
 
+// init map
+const map = L.map('map').setView([49.467384, 8.468261], 12);
+const markers = [];
+var markerIcon = L.divIcon({ 'className': 'map-marker' });
+var markerIconHover = L.divIcon({ 'className': 'map-marker-hover' });
+
+const mapLayers = {
+	'osm': 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+	'stadia': 'https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png',
+	'thunderforest': 'https://{s}.tile.thunderforest.com/neighbourhood/{z}/{x}/{y}{r}.png?apikey={apikey}',
+	'jawg': 'https://tile.jawg.io/jawg-streets/{z}/{x}/{y}{r}.png?access-token={accessToken}'
+};
+
+L.tileLayer(mapLayers.jawg, {
+	// attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OSM</a>',
+	attribution: '<a href="https://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank">&copy; <b>Jawg</b>Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors',
+	minZoom: 0,
+	maxZoom: 22,
+	accessToken: 'npL1JDy1cNRjJM4w4nfpU8KDpUJACZGzAW8ubHYmJcp48bDsUXF4wBSySuENKrKi'
+}).addTo(map);
+
+// process place entries
 let entries;
 
 try {
@@ -18,12 +40,15 @@ if (entries) {
 	entries.sort((a, b) => a.title.localeCompare(b.title));
 
 	console.log(entries);
+	let i = 1;
 
 	for (const entry of entries) {
 		if (entry?.visible === false) continue;
 
+		const id = i;
+
 		const li = document.createElement('li');
-		li.setAttribute('data-id', 1);
+		li.setAttribute('data-id', id);
 
 		const details = document.createElement('details');
 		const summary = document.createElement('summary');
@@ -68,8 +93,47 @@ if (entries) {
 		geo.appendChild(distance);
 		address.appendChild(maplink);
 
+		li.addEventListener('pointerover', function (event) {
+			const entry = event.target.closest('li');
+			// const targetMarker = markers.find((element) => element.id == entry.getAttribute('data-id'));
+
+			// use the stored marker
+			// entry.marker.setOpacity(0.5);
+			entry.marker.setIcon(markerIconHover);
+		});
+
+		li.addEventListener('pointerout', function (event) {
+			const entry = event.target.closest('li');
+			// entry.marker.setOpacity(1.0);
+			entry.marker.setIcon(markerIcon);
+		});
+
 		// append to DOM
 		entriesContainer.appendChild(li);
+
+		// add marker to map
+		const marker = L.marker([entry.lat, entry.lng], {icon: markerIcon, title: entry.title}).addTo(map);
+		marker.id = id;
+		marker.entry = li; // store a reference to the DOM element
+		li.marker = marker; // also add a reference to the corresponding map marker!
+		marker.on('mouseover', function (event) {
+			this.entry.classList.add('highlight');
+			// console.log(this.id, this.entry);
+		});
+		marker.on('mouseout', function (event) {
+			this.entry.classList.remove('highlight');
+		});
+		marker.on('click', function (event) { // open and close list item
+			const detailsEle = this.entry.querySelector('details');
+			detailsEle.open = !detailsEle.open;
+
+			// center map on marker
+			const markerLatLng = event.target.getLatLng();
+			map.setView([markerLatLng.lat, markerLatLng.lng], map.getZoom());
+		});
+		markers.push(marker);
+
+		i += 1;
 	}
 }
 
@@ -109,6 +173,13 @@ function getLocation (event=null) {
 				document.documentElement.setAttribute('data-home-lng', position.coords.longitude);
 
 				console.log('Setting user location … success!');
+
+				// set map position
+				try {
+					map.setView([position.coords.latitude, position.coords.longitude], 12);
+				} catch (error) {
+					console.error('Error updating map position', error);
+				}
 			},
 			function (error) { // Error function
 				console.log('Error getting user location', error);

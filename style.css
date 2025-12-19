@@ -41,7 +41,7 @@ html {
 
 header {
 	grid-column-start: 1;
-	grid-column-end: 7;
+	grid-column-end: 5;
 	background: transparent;
 
 	display: flex;
@@ -50,7 +50,7 @@ header {
 
 main {
 	grid-column-start: 1;
-	grid-column-end: 7;
+	grid-column-end: 5;
 
 	display: grid;
 	grid-template-columns: subgrid;
@@ -120,6 +120,10 @@ main .entries details {
 	}
 }
 
+main .entries li.highlight details {
+	background: orange;
+}
+
 main .entries .entry-expanded {
 	margin-block: calc(var(--spacer) * 0.5);
 
@@ -170,9 +174,39 @@ main .entries .tags {
 	a.bar { --basecolor: #007aff; color: #fff; }
 }
 
+main section.map {
+	grid-column-start: 3;
+	grid-column-end: 5;
+	grid-row-start: 1;
+}
+
+main #map {
+	width: 100%;
+	height: max(8rem, 100%);
+}
+
+main #map .leaflet-control-attribution {
+	opacity: 0.25;
+}
+
+main #map .map-marker,
+main #map .map-marker-hover {
+	width: 1rem;
+	height: 1rem;
+	background-color: red;
+	border-radius: 1rem;
+	corner-shape: superellipse(1.2);
+	/* box-shadow: inset 0 1px 3px rgb(255 255 255 / 0.95), inset 0 -1px 5px rgb(0 0 0 / 0.65); */
+}
+
+main #map .map-marker-hover {
+	background-color: #007aff;
+	border: 0px solid black;
+}
+
 footer {
 	grid-column-start: 1;
-	grid-column-end: 7;
+	grid-column-end: 5;
 	background: transparent;
 	color: #ccc;
 }
