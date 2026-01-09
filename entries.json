@@ -18,7 +18,9 @@
 			"restaurant",
 			"kneipe"
 		],
-		"visible": true
+		"visible": true,
+		"lat": 49.3719295,
+		"lng": 8.1666959
 	},
 	{
 		"title": "Pizzeria Quattro Mori",
@@ -29,7 +31,9 @@
 			"restaurant",
 			"kneipe"
 		],
-		"visible": true
+		"visible": true,
+		"lat": 49.4764862,
+		"lng": 8.4683421
 	},
 	{
 		"title": "Yagiya",
@@ -53,7 +57,9 @@
 			"restaurant",
 			"kneipe"
 		],
-		"visible": true
+		"visible": true,
+		"lat": 49.5363415,
+		"lng": 8.201118
 	},
 	{
 		"title": "Gasthaus Mandelhof",
@@ -64,7 +70,9 @@
 			"restaurant",
 			"kneipe"
 		],
-		"visible": true
+		"visible": true,
+		"lat": 49.3605952,
+		"lng": 8.1379067
 	},
 	{
 		"title": "upper glass craftbeer shop",
@@ -75,7 +83,9 @@
 			"shop",
 			"kneipe"
 		],
-		"visible": true
+		"visible": true,
+		"lat": 49.4880854,
+		"lng": 8.472421
 	},
 	{
 		"title": "notthesame / smell the flower",
@@ -85,7 +95,9 @@
 		"tags": [
 			"shop"
 		],
-		"visible": true
+		"visible": true,
+		"lat": 49.4837176,
+		"lng": 8.4783431
 	},
 	{
 		"title": "Blum",
@@ -96,7 +108,9 @@
 			"cafe",
 			"konditorei"
 		],
-		"visible": true
+		"visible": true,
+		"lat": 49.4777636,
+		"lng": 8.4781081
 	},
 	{
 		"title": "Das Studio Ricarda Berton",
@@ -106,7 +120,9 @@
 		"tags": [
 			"friseur"
 		],
-		"visible": true
+		"visible": true,
+		"lat": 49.4651326,
+		"lng": 8.4768827
 	},
 	{
 		"title": "Shemonster Vintage",
@@ -118,7 +134,9 @@
 			"clothing-store",
 			"second-hand"
 		],
-		"visible": true
+		"visible": true,
+		"lat": 49.4763176,
+		"lng": 8.4803857
 	},
 	{
 		"title": "Dipol | urban fashion brands",
@@ -130,7 +148,9 @@
 			"shop",
 			"design"
 		],
-		"visible": true
+		"visible": true,
+		"lat": 49.4863146,
+		"lng": 8.4753764
 	},
 	{
 		"title": "engelhorn",
@@ -142,7 +162,9 @@
 			"shop",
 			"design"
 		],
-		"visible": true
+		"visible": true,
+		"lat": 49.4861733,
+		"lng": 8.4697072
 	},
 	{
 		"title": "engelhorn sports",
@@ -154,7 +176,9 @@
 			"shop",
 			"sport"
 		],
-		"visible": true
+		"visible": true,
+		"lat": 49.4854215,
+		"lng": 8.4690108
 	},
 	{
 		"title": "Kurfürsten Parfümerie",
@@ -165,7 +189,9 @@
 			"shop",
 			"luxus"
 		],
-		"visible": true
+		"visible": true,
+		"lat": 49.4856383,
+		"lng": 8.4721279
 	},
 	{
 		"title": "Leprima Biomarkt",
@@ -176,7 +202,9 @@
 			"bio",
 			"supermarkt"
 		],
-		"visible": true
+		"visible": true,
+		"lat": 49.4694136,
+		"lng": 8.1800987
 	},
 	{
 		"title": "glore Heidelberg",
@@ -187,7 +215,9 @@
 			"clothing-store",
 			"luxus"
 		],
-		"visible": true
+		"visible": true,
+		"lat": 49.4080367,
+		"lng": 8.6954063
 	},
 	{
 		"title": "",
