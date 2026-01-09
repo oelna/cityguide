@@ -5,7 +5,7 @@ let changed = 0;
 
 for (const entry of entries) {
 	if (entry.address?.length > 0) {
-		if (entry.lat == 0 && entry.lng == 0) {
+		if (!entry.lat || !entry.lng || (entry.lat == 0 && entry.lng == 0)) {
 
 			// locate address
 			const addressText = entry.address.replaceAll("\n", ',');
