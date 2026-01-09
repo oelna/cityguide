@@ -2,6 +2,8 @@
 const entriesContainer = document.querySelector('main section ul.entries');
 
 const tags = document.querySelectorAll('.tags a');
+const tagsSet = new Set();
+const tagCloud = document.querySelector('.tag-cloud');
 const geo = document.querySelectorAll('.geo');
 
 // init map
@@ -44,6 +46,7 @@ if (entries) {
 
 	for (const entry of entries) {
 		if (entry?.visible === false) continue;
+		if (entry?.title == '') continue;
 
 		const id = i;
 
@@ -62,14 +65,17 @@ if (entries) {
 		tags.classList.add('tags');
 		entry.tags.forEach(function (tag, i) {
 			tags.insertAdjacentHTML('beforeend', `<li><a class="${tag}" href="#${tag}">${tag}</a></li>`)
+
+			// add to set for tag cloud
+			tagsSet.add(tag.toLowerCase());
 		});
 
 		const geo = document.createElement('div');
 		geo.classList.add('geo');
 		const address = document.createElement('div');
 		address.classList.add('address');
-		address.setAttribute('data-lat', entry.lat);
-		address.setAttribute('data-lng', entry.lng);
+		address.setAttribute('data-lat', entry.lat ?? '');
+		address.setAttribute('data-lng', entry.lng ?? '');
 		const maplink = document.createElement('a');
 		maplink.setAttribute('href', `http://maps.apple.com/?q=${entry.lat},${entry.lng}`);
 		maplink.insertAdjacentHTML('beforeend', entry.address.replaceAll('\n', '<br>'));
@@ -95,6 +101,7 @@ if (entries) {
 
 		li.addEventListener('pointerover', function (event) {
 			const entry = event.target.closest('li');
+			if (!entry.marker) return;
 			// const targetMarker = markers.find((element) => element.id == entry.getAttribute('data-id'));
 
 			// use the stored marker
@@ -104,6 +111,7 @@ if (entries) {
 
 		li.addEventListener('pointerout', function (event) {
 			const entry = event.target.closest('li');
+			if (!entry.marker) return;
 			// entry.marker.setOpacity(1.0);
 			entry.marker.setIcon(markerIcon);
 		});
@@ -112,28 +120,23 @@ if (entries) {
 		entriesContainer.appendChild(li);
 
 		// add marker to map
-		const marker = L.marker([entry.lat, entry.lng], {icon: markerIcon, title: entry.title}).addTo(map);
-		marker.id = id;
-		marker.entry = li; // store a reference to the DOM element
-		li.marker = marker; // also add a reference to the corresponding map marker!
-		marker.on('mouseover', function (event) {
-			this.entry.classList.add('highlight');
-			// console.log(this.id, this.entry);
-		});
-		marker.on('mouseout', function (event) {
-			this.entry.classList.remove('highlight');
-		});
-		marker.on('click', function (event) { // open and close list item
-			const detailsEle = this.entry.querySelector('details');
-			detailsEle.open = !detailsEle.open;
-
-			// center map on marker
-			const markerLatLng = event.target.getLatLng();
-			map.setView([markerLatLng.lat, markerLatLng.lng], map.getZoom());
-		});
-		markers.push(marker);
+		if (entry.lat && entry.lng) {
+			createMarker(entry.lat, entry.lng, entry.title, id, li);
+		}
 
 		i += 1;
+	}
+
+	// console.log(tagsSet);
+	for (const t of tagsSet) {
+		const tagEle = document.createElement('li');
+		const tagLink = document.createElement('a');
+		tagLink.textContent = t;
+		tagLink.setAttribute('data-tag', t);
+		tagLink.addEventListener('click', selectTag);
+
+		tagEle.appendChild(tagLink);
+		tagCloud.appendChild(tagEle);
 	}
 }
 
@@ -162,6 +165,9 @@ document.addEventListener('toggle', async function (event) {
 		}
 	}
 }, true);
+
+// show all places, untoggle tags
+document.querySelector('#reset-filter').addEventListener('pointerup', deselectTags);
 
 document.querySelector('#get-location').addEventListener('pointerup', getLocation);
 
@@ -201,7 +207,7 @@ async function loadDistance (placeElement) {
 	const addressText = address.innerHTML.replaceAll('<br>', ',');
 	let result;
 
-	console.log('loading distance to', addressText);
+	console.log('loading distance to', addressText, placeElement);
 	let currentLat = address.closest('.address').getAttribute('data-lat');
 	let currentLng = address.closest('.address').getAttribute('data-lng');
 	if (currentLat == '0' || currentLat == '') currentLat = null;
@@ -222,6 +228,12 @@ async function loadDistance (placeElement) {
 		} catch (error) {
 			console.error(error);
 			return false;
+		}
+
+		// add marker to map in case of success
+		if (result[0].lat && result[0].lon) {
+			const place = placeElement.closest('li');
+			createMarker(result[0].lat, result[0].lon, place.querySelector('summary h3').textContent, place.getAttribute('data-id'), place);
 		}
 	} else {
 		console.log('using stored lat/lng');
@@ -278,4 +290,63 @@ function formatDistance (meters, decimals=2) {
 	const i = Math.floor(Math.log(meters) / Math.log(k));
 
 	return `${parseFloat((meters / Math.pow(k, i)).toFixed(dm))}${sizes[i]}`;
+}
+
+function createMarker (lat, lng, title, id, linkedElement) {
+	const marker = L.marker([lat, lng], {icon: markerIcon, title: title}).addTo(map);
+	marker.id = id;
+	marker.entry = linkedElement; // store a reference to the DOM element
+	linkedElement.marker = marker; // also add a reference to the corresponding map marker!
+	marker.on('mouseover', function (event) {
+		this.entry.classList.add('highlight');
+		// console.log(this.id, this.entry);
+	});
+	marker.on('mouseout', function (event) {
+		this.entry.classList.remove('highlight');
+	});
+	marker.on('click', function (event) { // open and close list item
+		const detailsEle = this.entry.querySelector('details');
+		detailsEle.open = !detailsEle.open;
+
+		// center map on marker
+		const markerLatLng = event.target.getLatLng();
+		map.setView([markerLatLng.lat, markerLatLng.lng], map.getZoom());
+	});
+	markers.push(marker);
+}
+
+function deselectTags () {
+	const places = entriesContainer.querySelectorAll('& > li');
+	for (const p of places) {
+		p.removeAttribute('hidden');
+	}
+
+	// deselect tag cloud UI element
+	document.querySelector('.tag-cloud a.selected')?.classList.remove('selected');
+}
+
+function selectTag (event) {
+
+	if (event.target.classList.contains('selected')) {
+		deselectTags();
+		return;
+	}
+
+	const places = entriesContainer.querySelectorAll('& > li');
+	const tag = event.target.getAttribute('data-tag');
+	event.target.closest('.tag-cloud').querySelectorAll('a').forEach(function (ele, i) { ele.classList.remove('selected'); });
+	event.target.classList.add('selected');
+
+	for (const p of places) {
+		const placeTags = Array.prototype.map.call(p.querySelectorAll('.tags a'), function (ele) {
+			if (ele.textContent == tag) return true;
+			return false;
+		});
+
+		if (placeTags.includes(true)) {
+			p.removeAttribute('hidden');
+		} else {
+			p.setAttribute('hidden', '');
+		}
+	}
 }

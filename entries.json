@@ -1,23 +1,30 @@
 [
 	{
-		"title": "Eintrag 1",
-		"address": "Torwiesenstr. 17\n68163 Mannheim",
-		"lat": 49.4710008,
-		"lng": 8.4687953,
-		"description": "Beschreibung",
+		"title": "",
+		"address": "",
+		"description": "",
 		"website": "",
 		"tags": [
-			"restaurant"
+			""
+		],
+		"visible": true
+	},
+	{
+		"title": "Weinstube Eselsburg",
+		"address": "Kurpfalzstr. 62\n67435 Neustadt an der Weinstraße",
+		"description": "Das steinerne Gasthaus mit Gemälden an der Wand und begrüntem Garten serviert Pfälzer Spezialitäten und Weine.",
+		"website": "https://www.eselsburg.de",
+		"tags": [
+			"restaurant",
+			"kneipe"
 		],
 		"visible": true
 	},
 	{
 		"title": "Pizzeria Quattro Mori",
-		"address": "Windeckstr. 34\n68163 Mannheim",
-		"lat": 49.4701558,
-		"lng": 8.4825878,
+		"address": "Meerfeldstraße 11\n68163 Mannheim",
 		"description": "Eine günstige und gute Pizza in Hauptbahnhofsnähe, zu einem fairen Preis. Im Sommer auch Aussenbestuhlung.",
-		"website": "",
+		"website": "https://pizzeria4mori-lindenhof.com",
 		"tags": [
 			"restaurant",
 			"kneipe"
@@ -34,6 +41,171 @@
 		"tags": [
 			"konditorei",
 			"baeckerei"
+		],
+		"visible": true
+	},
+	{
+		"title": "Halbstück",
+		"address": "Hollergasse 2\n67281 Bissersheim",
+		"description": "Die mit hellem Holz modern-rustikal gestaltete Weinschenke mit Verkauf bietet auch einfache Hausmannskost an.",
+		"website": "https://halbstueck.de",
+		"tags": [
+			"restaurant",
+			"kneipe"
+		],
+		"visible": true
+	},
+	{
+		"title": "Gasthaus Mandelhof",
+		"address": "Mandelring 11\n67433 Neustadt an der Weinstraße",
+		"description": "Dieses einfache Gasthaus mit Restaurant wurde 1903 erbaut und liegt im Weinanbaugebiet Pfalz. Es ist 8 km vom altehrwürdigen Hambacher Schloss, 2 km von der nächsten S-Bahn-Station und 18 km vom Berg Kalmit entfernt.",
+		"website": "http://www.mandelhof.de",
+		"tags": [
+			"restaurant",
+			"kneipe"
+		],
+		"visible": true
+	},
+	{
+		"title": "upper glass craftbeer shop",
+		"address": "R6 6\n68161 Mannheim",
+		"description": " Eine umfangreiche Auswahl an verschiedenen Bieren aus verschiedenen Regionen und Länder. Nette Beratung und super Fachgespräche.",
+		"website": "http://www.upperglass-craftbeer.de",
+		"tags": [
+			"shop",
+			"kneipe"
+		],
+		"visible": true
+	},
+	{
+		"title": "notthesame / smell the flower",
+		"address": "Friedrichsplatz 15\n68165 Mannheim",
+		"description": "Außergewöhnlich schön mit Ideologie.",
+		"website": "http://notthesame-ma.com",
+		"tags": [
+			"shop"
+		],
+		"visible": true
+	},
+	{
+		"title": "Blum",
+		"address": "Schwetzinger Str. 92\n68165 Mannheim",
+		"description": "Das helle Café mit blauen und weißen Wänden, modernen Möbeln und Außenbereich serviert Kuchen und Petit Fours.",
+		"website": "http://www.blum-mannheim.de",
+		"tags": [
+			"cafe",
+			"konditorei"
+		],
+		"visible": true
+	},
+	{
+		"title": "Das Studio Ricarda Berton",
+		"address": "Speyerer Str. 63\n68199 Mannheim",
+		"description": "Kann ich nur uneingeschränkt weiterempfehlen, 10/10 Ergebnis und Zufriedenheit.",
+		"website": "",
+		"tags": [
+			"friseur"
+		],
+		"visible": true
+	},
+	{
+		"title": "Shemonster Vintage",
+		"address": "Georg-Lechleiter-Platz 2\n68165 Mannheim",
+		"description": "Liebe, Details, Aufmerksamkeit und die Geschichten, die jedes Objekt in dieser Galerie bekommt, macht Mannheim um eine Attraktion reicher.",
+		"website": "https://www.shemonstervintage.com",
+		"tags": [
+			"shop",
+			"clothing-store",
+			"second-hand"
+		],
+		"visible": true
+	},
+	{
+		"title": "Dipol | urban fashion brands",
+		"address": "R7 33\n68161 Mannheim",
+		"description": "Wirklich sehr schöner und außergewöhnliche Laden! Die Beratung war super und professionell. Die Klamotten werden ausgesucht und sind hochwertig.",
+		"website": "http://www.dipol-fashion.de",
+		"tags": [
+			"clothing-store",
+			"shop",
+			"design"
+		],
+		"visible": true
+	},
+	{
+		"title": "engelhorn",
+		"address": "O5 1\n68161 Mannheim",
+		"description": "Sehr schöne Sachen, große Auswahl von vielen bekannten Marken, empfehlenswert.",
+		"website": "https://info.engelhorn.com/haeuser/mode-im-quadrat/",
+		"tags": [
+			"clothing-store",
+			"shop",
+			"design"
+		],
+		"visible": true
+	},
+	{
+		"title": "engelhorn sports",
+		"address": "N5 6/7\n68161 Mannheim",
+		"description": "Super service, gute Beratung und gute Auswahl an outdoor Bekleidung und Sachen.",
+		"website": "https://info.engelhorn.com/haeuser/sports/",
+		"tags": [
+			"clothing-store",
+			"shop",
+			"sport"
+		],
+		"visible": true
+	},
+	{
+		"title": "Kurfürsten Parfümerie",
+		"address": "P7 24\n68161 Mannheim",
+		"description": "Angenehme Atmosphäre, sehr zuvorkommend, gute Anwendungen.",
+		"website": "http://www.kurfuersten-parfuemerie.de",
+		"tags": [
+			"shop",
+			"luxus"
+		],
+		"visible": true
+	},
+	{
+		"title": "Leprima Biomarkt",
+		"address": "Sägmühle 17\n67098 Bad Dürkheim",
+		"description": "Ein kleiner, etwas unscheinbarer Markt. Aber sein Logo sagt alles. \"Fair zu Mensch und Natur\".",
+		"website": "http://www.leprima.de/",
+		"tags": [
+			"bio",
+			"supermarkt"
+		],
+		"visible": true
+	},
+	{
+		"title": "glore Heidelberg",
+		"address": "Friedrich-Ebert-Anlage 1\n69117 Heidelberg",
+		"description": "Schön gestaltet, gutes Sortiment und super nette Mitarbeiter.",
+		"website": "http://www.glore.de",
+		"tags": [
+			"clothing-store",
+			"luxus"
+		],
+		"visible": true
+	},
+	{
+		"title": "",
+		"address": "",
+		"description": "",
+		"website": "",
+		"tags": [
+			""
+		],
+		"visible": true
+	},
+	{
+		"title": "",
+		"address": "",
+		"description": "",
+		"website": "",
+		"tags": [
+			""
 		],
 		"visible": true
 	}
